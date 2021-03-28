@@ -1,0 +1,147 @@
+\documentclass[12pt]{article}
+\usepackage{lipsum}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath, amssymb}
+\usepackage{bm}
+\usepackage[acronym, section=section]{glossaries}
+\usepackage{listings}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=20mm,
+	top=20mm,
+}
+
+\title{\textbf{Notes from Unit 1 \\ Finite Difference Time Domain}}
+\author{Tiago Vilela}
+\date{December 26, 2020}
+\input{glossary_entries}
+\makeglossary
+
+\begin{document}
+
+\maketitle
+\section{Introduction}%
+\label{sec:introduction}
+
+\acrfull{FDTD} method is a numerical analysis technique used to approximate solutions of differential equations.
+
+
+\begin{table}[htpb]
+	\begin{tabularx}
+		{\linewidth}{>{\parskip1ex}X@{\kern4\tabcolsep}>{\parskip1ex}X}
+		\toprule
+		\hfil\bfseries Pros
+		 &
+		\hfil\bfseries Cons
+		\\\cmidrule(r{3\tabcolsep}){1-1}\cmidrule(l{-\tabcolsep}){2-2}
+
+		%% PROS, seperated by empty line or \par
+		Simple and intuitive;                  \par
+		Works on Field variables; \par
+		Do not invert matrices;                \par
+		Double precision;                      \par
+		Directly models nonlinear phenomenons and several mediums. \par
+
+		 &
+
+		%% CONS, seperated by empty line or \par
+		High processing time for 3D problems; \par
+		Complex geometry demands a lot of work. \par
+
+		\\\bottomrule
+	\end{tabularx}
+\end{table}
+
+\subsection{Identification of Electromagnetic Problems}%
+\label{sec:identification_of_electromagnetic_problems}
+Continuous problems are caregorized based on:
+\begin{itemize}
+	\item the solution region;
+	\item the equation that describes the problem;
+	\item border conditions associated to the problem.
+\end{itemize}
+
+Electromagnetic problems can usually be classified based on the equations that describe them. These can be integral or/and differential equations. Most of them can be defined by the following equation:
+\begin{equation}
+	L \Phi = g
+\end{equation}
+where L is a differential, integral, or integral-diferential operator, g is the source (usually known) and $\Phi$ is the function to be solved.
+
+\begin{equation}
+	a\frac{\partial^{2}\Phi}{\partial x^{2}}+
+	b\frac{\partial^{2}\Phi}{\partial x\partial y}+
+	c\frac{\partial^{2}\Phi}{\partial y^{2}}+
+	d\frac{\partial\Phi}{\partial x}+
+	e\frac{\partial\Phi}{\partial y}+
+	f\Phi=
+	g
+\end{equation}
+
+\begin{equation}
+	L=
+	a\frac{\partial^{2}}{\partial x^{2}}+
+	b\frac{\partial^{2}}{\partial x \partial y}+
+	c\frac{\partial^{2}}{\partial y^{2}}+
+	d\frac{\partial}{\partial x}+
+	e\frac{\partial}{\partial y}+
+	f
+\end{equation}
+where the coeficients a,b,c are functions of $x$ and $y$, and and might be dependent on $\Phi$, in case the \acrfull{PDE} is nonlinear. Additionally, the \acrshort{PDE} is homogeneous if $g(x,y) = 0$ and non homogeneous if $g(x,y) \neq 0$.
+
+\subsection{Second Order Differential Equations}%
+\label{sub:second_order_differential_equations}
+
+
+Derived from the equation $a x² + b xy+ c y^{2} + d x+ e y+ f = 0$, the second order \acrshortpl{PDE} are classified by:
+\begin{table}[htpb]
+	\centering
+	\label{tab:second_order_pde_classification}
+	\begin{tabular}{cc}
+		\toprule
+		condition  & case       \\
+		\midrule
+		$b²-4ac<0$ & eliptic    \\
+		$b²-4ac>0$ & hyperbolic \\
+		$b²-4ac=0$ & parabolic  \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\begin{table}[htpb]
+	\centering
+	\caption{Classification of Electromagnetic Problems}
+	\label{tab:label}
+	\begin{tabular}{cccc}
+		\toprule
+		Case       & Equation                                                                                             & Variables                   & Associated to           \\
+		\midrule
+		Eliptic    & $\frac{\partial^{2}\Phi}{\partial x^{2}} + \frac{\partial^{2}\Phi}{\partial y^{2}} = g(x,y) $        & $a=c=1$ and $b=0$           & Stationary  phenomenons \\
+		Hyperbolic & $\frac{\partial^{2}\Phi}{\partial x^{2}} = \frac{1}{u^{2}} \frac{\partial^{2}\Phi}{\partial t^{2}} $ & $a=u^{2}$, $b=0$ and $c=-1$ & Propagation problems    \\
+		Parabolic  & $\frac{\partial^{2}\Phi}{\partial x^{2}} =k \frac{\partial\Phi}{\partial t}$                         & $a=1$ and $b=c=0$           & Slow change phenomenons \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+The solution $\Phi$ in a bounded region  $R$ is required to satisfy given conditions  $S$, these are:
+
+\begin{table}[htpb]
+	\centering
+	\caption{Boundary Conditions}
+	\label{tab:boundary_conditions}
+	\begin{tabular}{ccc}
+		\toprule
+		Condition           & Equation                                                                   \\
+		\midrule
+		Dirichlet Condition & $\Phi(\bm{r}) = 0$                                                         \\
+		Neumann Condition   & $\frac{\partial \Phi(\bm{r})}{\partial n} = 0$                             \\
+		Neumann Condition   & $\frac{\partial \Phi(\bm{r})}{\partial n} +  \Phi(\bm{r}) + h(\bm{r}) = 0$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\end{document}
+
