@@ -1,0 +1,676 @@
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+\documentclass[journal,transmag]{IEEEtran}
+%%%Custom definitions
+\usepackage{import}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\newcommand{\executeiffilenewer}[3]{%
+	\ifnum\pdfstrcmp%
+		{\pdffilemoddate{#1}}%
+		{\pdffilemoddate{#2}}%
+		>0%
+			{\immediate\write18{#3}}%
+	\fi%
+}
+
+\newcommand{\includesvg}[2][]{%
+	\executeiffilenewer{#1#2.svg}{#1#2.pdf}%
+	{inkscape -z -D --file=#1#2.svg --export-pdf=#1#2.pdf --export-latex}%
+	\subimport{#1}{#2.pdf_tex}% s
+}
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+
+
+
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf{}
+% \usepackage[pdftex]{graphicx}
+% declare the path(s) where your graphic files are
+% \graphicspath{{../pdf/}{../jpeg/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+% \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+% or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+% will default to the driver specified in the system graphics.cfg if no
+% driver is specified.
+% \usepackage[dvips]{graphicx}
+% declare the path(s) where your graphic files are
+% \graphicspath{{../eps/}}
+% and their extensions so you won't have to specify these with
+% every instance of \includegraphics
+% \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+% *** MATH PACKAGES ***
+%
+\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+\usepackage{bm}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{Calculation of Band Structures \\ Through the Finite-Difference Time-Domain Method}
+
+\author{\IEEEauthorblockN{Tiago Vilela Lima Amorim}
+	\IEEEauthorblockA{Federal University of Minas Gerais, Belo Horizonte, MG 31270170 Brazil}}
+
+
+\markboth{FDTD 2020/2, March~2021}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Transactions on Magnetics Journals}
+
+
+\IEEEtitleabstractindextext{%
+	\begin{abstract}
+		This paper presents the band structure computation of photonic crystals using FDTD.\@
+		The analysis of 2D and 3D non disperssive lattices was carried out and compared to the well known PWE solutions.
+		Results show a good agreement between both methods.
+	\end{abstract}
+
+	\begin{IEEEkeywords}
+		Photonic crystals, bandgap, FDTD, PWEM.\@
+	\end{IEEEkeywords}}
+
+
+\maketitle
+
+\IEEEdisplaynontitleabstractindextext{}
+\IEEEpeerreviewmaketitle{}
+
+
+
+\section{Introduction}
+
+\IEEEPARstart{A}{} photonic  crystal  is  a  periodic  lattice  of  dielectric  materials  with  cell  dimensionscorresponding to the wavelength of visible light. The periodicity and symmetry of thepatterned material manifests itself as a periodic change of its dielectric constant. Forvisible  light  the  required  dimensions  are  around  500 nm,  about  three  orders  ofmagnitude higher than the atomic spacing of an ordinary crystal. Thus, the behavior oflight in a photonic crystal can be well described by the Maxwell equations. Based onsolid-state  physics  analogy,  similarity  can  be  deduced  between  the  behavior  ofelectrons in ordinary crystal lattices and the propagation of electromagnetic fields in
+photonic  crystals.  In  both  cases,  as  a  result  of  Bragg  reflections  there  are  certainfrequencies that cannot propagate in the lattice and gaps will appear in the frequencyspectrum. The interesting optical properties of photonic crystals are consequences ofthe existing photonic bands (Joannopouloset al., 1995; Sakoda, 2001; Poole and Owens,2003).The  finite  difference  time  domain  (FDTD) method (Taflove,  1995;  Sullivan, 2000;Ward  and  Pendry,  1998)  is  widely  used  to  determine  the  photonic  bands  of  thesestructures. Passing a light pulse of Gaussian distribution through the photonic crystaland  analyzing  the  transmitted  wave  can  explore  the  photonic  bands.  Since  thedielectric constant in real optical materials is a function of frequency, this dispersionshould be considered in the process of determining the accurate band structure.
+In contrast to PWE method, the FDTD provides the possibility of the refractive index vriation during the computation process, which allows to take into account losses and nonlinearity when computing the band structure.
+
+
+\section{Problem Definition}
+Employing the dirac notation to provide an independent representation for the
+fields and inner products, the source-free Maxwell's equations for a linear
+dielectric $\epsilon=\epsilon(\vec{\bm{r}})$ can be written in terms of only
+the magnetic field $|H\rangle$~\cite{joannopoulos_photonic_1997}:
+
+\begin{equation}
+	\vec{\nabla} \times \frac{1}{\epsilon}\vec{\nabla}\times | H \rangle =
+	-\frac{1}{c^{2}}\frac{\partial^{2}}{\partial t^{2}} |H \rangle,
+\end{equation}
+\begin{equation}
+	\vec{\nabla}\cdot |H \rangle = 0,
+\end{equation}
+where $c$ is the speed of light, the magnetic field is time-dependent ($e^{-j\omega t}$)
+with a defined frequency $\omega$.
+Furthermore, supposing that the system is periodic, the Bloch's theorem
+for periodic eigenproblems affirms that the states cn be chosen to be of the form~\cite{ashcroft_solid_1976}:
+\begin{equation}
+	|H \rangle = e^{j(\vec{k} \cdot \vec{r}-\omega t)} |H_{\vec{k}} \rangle,
+\end{equation}
+where $\vec{k}$ is the \textit{Bloch wavevector} and $|H_{\vec{k}}$ is a periodic field
+completly defined by its values in the unit cell. Then, the eigenproblem in the unit cell becomes:
+\begin{equation}
+	\hat{A}_{\vec{k}}|H_{\vec{k}} \rangle = {(w/c)}^{2}|H_{\vec{k}},
+\end{equation}
+where $\hat{A}_{\vec{k}}$ is the positive semi-definite Hermitian operator:
+
+\begin{equation}
+	\hat{A}_{\vec{k}} = (\vec{\nabla}+j\vec{k})\times \frac{1}{\epsilon}
+	(\vec{\nabla}+j\vec{k})\times.
+\end{equation}
+
+All theorems related to Hermitian eigenproblems apply. Since $|H_{\vec{k}}$
+has a compact support the solutions are a discrete sequence of eigenfrequencies
+$\omega_{n}(\vec{k})$ forming  continuous \textit{bnd structure} (or \textit{dispersion relation})
+as a function of $\vec{k}$. Additionally, the modes at a given $\vec{k}$
+
+\begin{equation}
+	\langle H_{\vec{k}}^{(n)}|H_{\vec{k}}^{(m)} \rangle = \delta_{n,m},
+\end{equation}
+where $\delta_{n,m}$ is the Kronecker delta.
+\section{The Finite-Difference Time-Domain Approach}
+
+\begin{equation}
+	\vec{\bm{E}}(\vec{\bm{r}}) = \vec{\bm{A}}(\vec{\bm{r}}) e^{j \vec{\bm{\beta}}\cdot \vec{\bm{r}}}
+\end{equation}
+
+\begin{equation}
+	\vec{\bm{A}}(\vec{\bm{r}} + \vec{\bm{t}}_{pqr}) =
+	\vec{\bm{A}}(\vec{\bm{r}})
+\end{equation}
+
+\begin{equation}
+	\epsilon(\vec{\bm{r}} + \vec{\bm{t}}_{pqr}) =
+	\epsilon(\vec{\bm{r}})
+\end{equation}
+
+
+\begin{equation}
+	\vec{\bm{t}}_{pqr} = p\vec{\bm{t}}_{1} + q\vec{\bm{t}}_{2}+ r\vec{\bm{t}}_{3}
+\end{equation}
+
+\the\textwidth
+\the\columnwidth{}
+
+\subsection{Bloch Periodic Boundary Conditions}
+\begin{align}
+	\vec{\bm{E}}(x \pm \Lambda_{x}) & =
+	\vec{\bm{E}}(x) e^{j\pm \beta_{x} \Lambda_{x}} \\
+	\vec{\bm{E}}(y \pm \Lambda_{y}) & =
+	\vec{\bm{E}}(y) e^{j\pm \beta_{y} \Lambda_{y}} \\
+	\vec{\bm{E}}(z \pm \Lambda_{z}) & =
+	\vec{\bm{E}}(z) e^{j\pm \beta_{z} \Lambda_{z}} \\
+	\vec{\bm{H}}(x \pm \Lambda_{x}) & =
+	\vec{\bm{H}}(x) e^{j\pm \beta_{x} \Lambda_{x}} \\
+	\vec{\bm{H}}(y \pm \Lambda_{y}) & =
+	\vec{\bm{H}}(y) e^{j\pm \beta_{y} \Lambda_{y}} \\
+	\vec{\bm{H}}(z \pm \Lambda_{z}) & =
+	\vec{\bm{H}}(z) e^{j\pm \beta_{z} \Lambda_{z}}
+\end{align}
+
+\subsection{Initial Conditions}
+To compute the photonic bandgap diagram for a given PhC, the time-dependent response of its structure by a source that excites all modes should be found at any point of the computational domain. Therefore, several distinct poralized impressed current sources with wide spectrum gaussian waveforms should be randomly placed throughout the computational domain to ensure that all modes of interest are excited. Moreover, as there is no absorption due to perioic boundary conditions, radiation will indefinetely exist.
+
+\subsection{Structure Response Analysis}
+The spectral analysis of the time dependent response can be carried out by the Fourier transform. Although the accuracy of the method achieves its maximum with infinite computtion time, given finite resources, the computation time should still be considerably large. The eigen-states of the structure are found searching for local maximas at the response spectrum. A more detailed analysis should be made to assure that no spurious solutions are considered, which usually appear as inessential peaks the the spectrum.
+
+
+\begin{figure}[ht]
+	\centering
+	% \def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{sources_detectors}
+	\caption{Random distribution of sources and detectors.}\label{fig:sources_detectors}
+\end{figure}
+
+
+\section{Results}
+\begin{figure}[ht]
+	\centering
+	% \def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{PHC_2D}
+	\caption{A two-dimensional photonic crystal. This material is a square lattice of dielectric
+		columns with radius $r$ and dielectric constant $\epsilon$. The material is homogeneous along the
+		$z$ direction, and periodic along $x$ and $y$ with lattice
+		constant $a$. The left inset shows the square lattice from above with the unit cell framed in red.
+	}\label{fig:phc_2d}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	% \def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{PHC_3D}
+	\caption{A three-dimensional photonic crystal. The material is a cubic lattice
+		of dielectric edges with width $w$ and dielectric constant $\epsilon$. The material
+		is periodic along $x$, $y$ and $z$ with lattice constant $a$. The edges of the cubic unit cell is shown framed in red.}\label{fig:phc_3d}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{PSD}
+	\caption{Power spectral density and eigen-states peaks.}\label{fig:psd}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{PWE_2D}
+	\caption{The photonic band structure for a square array of dielectric columns with
+		$r = 0.2 a$. The blue bands represent TM modes and the red bands represent TE modes. The
+		inset shows the Brillouin zone, with the irreducible zone shaded light blue.
+		The results were calculated using PWEM where columns ($\epsilon_{r}$ = 8.9, as for alumina) are embedded in air ($\epsilon_{r}$ = 1).}\label{fig:PWE_2D}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+	\def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{FDTD_2D}
+	\caption{The photonic band structure for a square array of dielectric columns with
+		$r = 0.2 a$. The blue bands represent TM modes and the red bands represent TE modes. The
+		inset shows the Brillouin zone, with the irreducible zone shaded light blue.
+		The results were calculated using FDTD where columns ($\epsilon_{r}$ = 8.9, as for alumina) are embedded in air ($\epsilon_{r}$ = 1).}\label{fig:FDTD_2D}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{PWE_3D}
+	\caption{The photonic band structure for the lowest-frequency electromagnetic modes of a
+		simple cubic lattice with dielectric edges ($w$=0.2a,$\epsilon_{r}$ = 2.43) in air.
+		Note the absence of a complete photonic band gap.}\label{fig:PWE_3D}
+\end{figure}
+
+
+\begin{figure}[ht]
+	\centering
+	\def\svgwidth{1.0\columnwidth}
+	\includesvg[figures/]{FDTD_3D}
+	\caption{FDTD 3D  Graph}\label{fig:FDTD_3D}
+
+\end{figure}
+
+FFT the record arrays to calculate the power spectral density recorded at each record point.
+
+\begin{equation}
+	PSD_{p}(\omega) = \left| \mathcal{F} \left\{\vec{\bm{E}}(t) |^{p}\right\} \right|^{2}
+\end{equation}
+
+The power spectral densities from all detector points are added
+\begin{equation}
+	PSD(\omega) = \sum_{p} PSD_{p}(\omega)
+\end{equation}
+
+frequencies corresponding to Bloch modes are identified as sharp peaks in the overall PSD.\@
+
+
+
+
+\subsection{Subsection Heading Here}
+Subsection text here.
+
+\subsubsection{Subsubsection Heading Here}
+Subsubsection text here.
+
+
+\section{Conclusion}
+The conclusion goes here.
+
+
+
+
+
+% if have a single appendix:
+%\appendix[Proof of the Zonklar Equations]
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+
+\appendices{}
+\section{Proof of the First Zonklar Equation}
+Appendix one text goes here.
+
+% you can choose not to have a title for an appendix
+% if you want by leaving the argument blank
+\section{}
+Appendix two text goes here.
+
+
+% use section* for acknowledgment
+\section*{Acknowledgment}
+
+
+The authors would like to thank \ldots
+
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff{}
+\newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{unsrt}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{references}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+% \begin{thebibliography}{1}
+
+% 	\bibitem{IEEEhowto:kopka}
+% 	H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+% 	0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+% \end{thebibliography}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+% \begin{IEEEbiography}{Michael Shell}
+% 	Biography text here.
+% \end{IEEEbiography}
+
+% if you will not have a photo at all:
+% \begin{IEEEbiographynophoto}{John Doe}
+% 	Biography text here.
+% \end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+% \begin{IEEEbiographynophoto}{Jane Doe}
+% 	Biography text here.
+% \end{IEEEbiographynophoto}
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+%\vfill
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+% that's all folks
+\end{document}
+
+

@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{Lumerical_FDTD}
+``Lumerical fdtd analysis software.''
+  https://support.lumerical.com/hc/en-us/articles/360042039033-Bandstructure-of-planar-photonic-crystal-with-a-square-lattice-varFDTD-.
+\newblock Acesso: 26-01-2021.
+
+\bibitem{shaobin_fdtd_2006}
+L.~Shaobin, G.~Changqing, Z.~Jianjiang, and Y.~Naichang, ``{FDTD} simulation
+  for magnetized plasma photonic crystals,'' {\em Acta Physica Sinica},
+  vol.~55, no.~3, pp.~1283--1288, 2006.
+
+\bibitem{guo_photonic_2004}
+S.~Guo, F.~Wu, S.~Albin, and R.~S. Rogowski, ``Photonic band gap analysis using
+  finite-difference frequency-domain method,'' {\em Optics Express}, vol.~12,
+  no.~8, p.~1741, 2004.
+
+\bibitem{hanif_fdfd_2011}
+A.~G. Hanif, T.~Uno, and T.~Arima, ``{FDFD} and {FDTD} analysis of
+  2-{Dimensional} lossy photonic crystals,'' {\em IEICE Electronics Express},
+  vol.~8, no.~9, pp.~695--698, 2011.
+
+\bibitem{joannopoulos_photonic_2008}
+J.~D. Joannopoulos, ed., {\em Photonic crystals: molding the flow of light}.
+\newblock Princeton: Princeton University Press, 2nd ed~ed., 2008.
+\newblock OCLC: ocn180190957.
+
+\end{thebibliography}
